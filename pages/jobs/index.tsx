@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import type { NextPage } from 'next'
+import Link from 'next/link'
 
 const Index: NextPage = ({data}: any) => {
   const [allUsers, setAllUsers] = useState(data)
@@ -25,13 +26,16 @@ const Index: NextPage = ({data}: any) => {
     }
 
     filterResults(searchInput)
-  }, [allUsers, searchInput]) // DEPENDENCIES ADDED || if it isn't added: [WARNING]: Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+  }, [allUsers, setUsers, searchInput]) // DEPENDENCIES ADDED || if it isn't added: [WARNING]: Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
 
   return (
     <div>
       <input type="text" value={searchInput} onChange={(e) => handleSearchInput(e)} />
       { users.map((user: any) => (
-        <p key={user.id}>{ user.firstName } - { user.lastName } - { user.age } - { user.birthDate } - { user.company.name } - { user.company.title } </p>
+        <div key={user.id}>
+          <p>{ user.firstName } - { user.lastName } - { user.age } - { user.birthDate } - { user.company.name } - { user.company.title } </p>
+          <Link href={`/jobs/${user.id}`}><a>Go to Post page {user.id}</a></Link>
+        </div>
       )) }
     </div>
   )
