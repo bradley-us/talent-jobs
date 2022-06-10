@@ -15,7 +15,7 @@ export async function getServerSideProps({ params }: any) {
       props: {job}
     }
   } catch (error) {
-    console.log(`[ERROR FETCHING JOB]: ${error}`)
+    console.log(`[ERROR FETCHING DATA FROM API]: ${error}`)
   }
 }
 
