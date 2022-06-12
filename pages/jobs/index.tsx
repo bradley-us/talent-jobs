@@ -1,11 +1,16 @@
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 import type { NextPage } from 'next'
 import Link from 'next/link'
 
 const Index: NextPage = ({data}: any) => {
+
+  const router = useRouter()
+  const { lookFor } = router.query
+
   const [allUsers, setAllUsers] = useState(data)
   const [users, setUsers] = useState(allUsers)
-  const [searchInput, setSearchInput] = useState('')
+  const [searchInput, setSearchInput] = useState(lookFor)
 
   const handleSearchInput = (e: any) => {
     const valueInput = e.target.value
@@ -26,7 +31,7 @@ const Index: NextPage = ({data}: any) => {
     }
 
     filterResults(searchInput)
-  }, [allUsers, setUsers, searchInput]) // DEPENDENCIES ADDED || if it isn't added: [WARNING]: Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+  }, [allUsers, setUsers, searchInput, lookFor]) // DEPENDENCIES ADDED || if it isn't added: [WARNING]: Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
 
   return (
     <div>
