@@ -44,7 +44,7 @@
 .moreInfoBtn {
   margin: 20px 0 0;
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
 }
 
 .spanMoreInfoBtn {

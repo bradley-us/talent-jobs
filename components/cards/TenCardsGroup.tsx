@@ -47,6 +47,7 @@ const TenCardsGroup = ({ cardsData }: any): JSX.Element => {
         { jobList.map((job:any, key:number) => {
           if (key < 10) return (
             <Card
+              key={ key }
               id={ job.id }
               firstName={ job.firstName }
               lastName={ job.lastName }

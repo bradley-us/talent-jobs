@@ -1,15 +1,20 @@
 import { NextPage } from "next"
+import { useRouter } from "next/router"
+
+import styles from '../../../styles/Card.module.css'
 import Card from "../../../components/cards/Card"
 import Layout from "../../../layouts/Layout"
 
 const JobPost: NextPage = ({ job }: any) => {
-  console.log(job)
+
+  const router = useRouter()
+  
   return (
     <Layout>
       <>
         <h2>Datos del contacto elegido</h2>
         <Card
-          infoPage={true}
+          infoPage
           id={ job.id }
           firstName={ job.firstName }
           lastName={ job.lastName }
@@ -17,6 +22,7 @@ const JobPost: NextPage = ({ job }: any) => {
           email={ job.email }
           birthDate={ job.birthDate }
         />
+        <span style={{ marginTop: '10px'}} className={ styles.spanMoreInfoBtn } onClick={() => router.back()}>Go back</span>
       </>
     </Layout>
   )

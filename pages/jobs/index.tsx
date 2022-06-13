@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useLayoutEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import type { NextPage } from 'next'
 import Layout from '../../layouts/Layout'
@@ -10,36 +10,34 @@ import { text } from 'stream/consumers'
 const Index: NextPage = ({data}: any): JSX.Element => {
 
   const router = useRouter()
-  const { lookFor }: any = router.query
+  const { lookFor }: any = router?.query
 
   const [allUsers, setAllUsers] = useState<any>(data)
   const [users, setUsers] = useState<any>(allUsers)
-  const [searchInput, setSearchInput] = useState<any>('' || lookFor)
+  const [searchInput, setSearchInput] = useState(lookFor || '')
 
   const handleSearchInput = (e: any): void => {
     const valueInput: string = e.target.value
     setSearchInput(valueInput)
   }
-
-  useEffect((): void => {
+  
+  useLayoutEffect((): void => {
     const filterResults = (text: string) => {
-        var filteredUsers = allUsers.filter((user: any) => {
-          if (
-            user.firstName.toLowerCase().includes(text?.toLowerCase())
-            || user.lastName.toLowerCase().includes(text?.toLowerCase())
-    
-            ) {return user}
-            
-        })
-        setUsers(filteredUsers)
+        if (text) {
+          const filteredUsers = allUsers.filter((user: any) => {
+            if (
+              user.firstName.toLowerCase().includes(text?.toLowerCase())
+              || user.lastName.toLowerCase().includes(text?.toLowerCase())
+      
+              ) {return user}
+              
+          })
+          setUsers(filteredUsers)
+        }
       }
 
-    const hola = (text: any) => {
-      if (text !== '') {
-        filterResults(searchInput)
-      }
-    }
-    hola(searchInput)
+      filterResults(searchInput)
+
   }, [allUsers, setUsers, searchInput, lookFor]) // DEPENDENCIES ADDED || if it isn't added: [WARNING]: Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
 
   return (

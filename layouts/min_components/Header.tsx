@@ -12,7 +12,7 @@ const Header = (): JSX.Element => {
       <nav>
         <ul className={ styles.navBarList }>
           <Link href={'/'}><a style={{ color: `${router.asPath === '/' ? '#00af94' : 'black'}`}}>HOME</a></Link>
-          <Link href={'/jobs'} style={{ color: `${router.asPath === '/jobs' ? '#00af94' : 'black'}`}}><a>USERS</a></Link>
+          <Link href={'/jobs'}><a style={{ color: `${router.asPath === '/jobs' ? '#00af94' : 'black'}`}}>USERS</a></Link>
         </ul>
       </nav>
     </header>
