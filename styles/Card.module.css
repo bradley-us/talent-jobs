@@ -1,0 +1,67 @@
+.cardContainer {
+  background-color: #f6f6f6;
+  box-shadow: 2px 1px 10px #e1e1e1;
+  border-radius: 10px;
+  padding: 20px;
+  width: 100%;
+  max-width: 350px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 4px solid #006959;
+}
+
+.titleCard {
+  padding: 0;
+  margin: 0
+}
+
+.spanBoldText {
+  font-weight: bold;
+  background-color: #00af94;
+  color: white;
+  border-radius: 10px;
+  padding: 3px 10px;
+  font-size: 12px;
+  margin-bottom: 10px;
+  text-align: end;
+}
+
+.cardBody {
+  width: 90%;
+}
+
+.cardGrid {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px
+}
+
+.moreInfoBtn {
+  margin: 20px 0 0;
+  display: flex;
+  justify-content: end;
+}
+
+.spanMoreInfoBtn {
+  display: flex;
+  background-color: #007a6e;
+  width: 120px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  padding: 7px;
+  color: white;
+  transition: all ease 0.4s;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.spanMoreInfoBtn:hover {
+  background-color: white;
+  color: #0097E6;
+}

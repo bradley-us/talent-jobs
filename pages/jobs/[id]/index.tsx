@@ -1,7 +1,24 @@
-const JobPost = ({ job }: any) => {
+import { NextPage } from "next"
+import Card from "../../../components/cards/Card"
+import Layout from "../../../layouts/Layout"
+
+const JobPost: NextPage = ({ job }: any) => {
   console.log(job)
   return (
-    <div>Received by params: { job.id } - { job.firstName } - { job.birthDate } </div>
+    <Layout>
+      <>
+        <h2>Datos del contacto elegido</h2>
+        <Card
+          infoPage={true}
+          id={ job.id }
+          firstName={ job.firstName }
+          lastName={ job.lastName }
+          age={ job.age }
+          email={ job.email }
+          birthDate={ job.birthDate }
+        />
+      </>
+    </Layout>
   )
 }
 

@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import type { NextPage } from 'next'
-import Link from 'next/link'
+import Layout from '../../layouts/Layout'
+import Card from '../../components/cards/Card'
+import styles from '../../styles/Search.module.css'
+import { text } from 'stream/consumers'
+
 
 const Index: NextPage = ({data}: any): JSX.Element => {
 
@@ -10,7 +14,7 @@ const Index: NextPage = ({data}: any): JSX.Element => {
 
   const [allUsers, setAllUsers] = useState<any>(data)
   const [users, setUsers] = useState<any>(allUsers)
-  const [searchInput, setSearchInput] = useState<string | undefined>(lookFor)
+  const [searchInput, setSearchInput] = useState<any>('' || lookFor)
 
   const handleSearchInput = (e: any): void => {
     const valueInput: string = e.target.value
@@ -18,31 +22,45 @@ const Index: NextPage = ({data}: any): JSX.Element => {
   }
 
   useEffect((): void => {
-    const filterResults = (text: string | undefined) => {
-      var filteredUsers = allUsers.filter((user: any) => {
-        if (
-          user.firstName.toLowerCase().includes(text?.toLowerCase())
-          || user.lastName.toLowerCase().includes(text?.toLowerCase())
-  
-          ) return user
-      })
-  
-      setUsers(filteredUsers)
-    }
+    const filterResults = (text: string) => {
+        var filteredUsers = allUsers.filter((user: any) => {
+          if (
+            user.firstName.toLowerCase().includes(text?.toLowerCase())
+            || user.lastName.toLowerCase().includes(text?.toLowerCase())
+    
+            ) {return user}
+            
+        })
+        setUsers(filteredUsers)
+      }
 
-    filterResults(searchInput)
+    const hola = (text: any) => {
+      if (text !== '') {
+        filterResults(searchInput)
+      }
+    }
+    hola(searchInput)
   }, [allUsers, setUsers, searchInput, lookFor]) // DEPENDENCIES ADDED || if it isn't added: [WARNING]: Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
 
   return (
-    <div>
-      <input type="text" value={searchInput} onChange={(e) => handleSearchInput(e)} />
-      { users.map((user: any) => (
-        <div key={user.id}>
-          <p>{ user.firstName } - { user.lastName } - { user.age } - { user.birthDate } - { user.company.name } - { user.company.title } </p>
-          <Link href={`/jobs/${user.id}`}><a>Go to Post page {user.id}</a></Link>
-        </div>
-      )) }
-    </div>
+    <Layout>
+      <>
+      <input style={{ marginBottom: '20px' }} placeholder="Type a name or lastname..." className={ styles.inputSearch } type="text" value={searchInput} onChange={(e) => handleSearchInput(e)} />
+      <div className={ styles.cardGrid }>
+        { users.map((job: any, key: number) => (
+          <Card
+            key={key}
+            id={ job.id }
+            firstName={ job.firstName }
+            lastName={ job.lastName }
+            age={ job.age }
+            email={ job.email }
+            birthDate={ job.birthDate }
+          />
+        )) }
+      </div>
+      </>
+    </Layout>
   )
 }
 
