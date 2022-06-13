@@ -3,26 +3,26 @@ import { useRouter } from 'next/router'
 import type { NextPage } from 'next'
 import Link from 'next/link'
 
-const Index: NextPage = ({data}: any) => {
+const Index: NextPage = ({data}: any): JSX.Element => {
 
   const router = useRouter()
-  const { lookFor } = router.query
+  const { lookFor }: any = router.query
 
-  const [allUsers, setAllUsers] = useState(data)
-  const [users, setUsers] = useState(allUsers)
-  const [searchInput, setSearchInput] = useState(lookFor)
+  const [allUsers, setAllUsers] = useState<any>(data)
+  const [users, setUsers] = useState<any>(allUsers)
+  const [searchInput, setSearchInput] = useState<string | undefined>(lookFor)
 
-  const handleSearchInput = (e: any) => {
-    const valueInput = e.target.value
+  const handleSearchInput = (e: any): void => {
+    const valueInput: string = e.target.value
     setSearchInput(valueInput)
   }
 
-  useEffect(() => {
-    const filterResults = (text: any) => {
+  useEffect((): void => {
+    const filterResults = (text: string | undefined) => {
       var filteredUsers = allUsers.filter((user: any) => {
         if (
-          user.firstName.toLowerCase().includes(text.toLowerCase())
-          || user.lastName.toLowerCase().includes(text.toLowerCase())
+          user.firstName.toLowerCase().includes(text?.toLowerCase())
+          || user.lastName.toLowerCase().includes(text?.toLowerCase())
   
           ) return user
       })
