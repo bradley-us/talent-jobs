@@ -22,7 +22,7 @@ const Index: NextPage = ({data}: any): JSX.Element => {
   }
   
   useLayoutEffect((): void => {
-    const filterResults = (text: string) => {
+    const filterResults = (text: string, allUsers: any) => {
         if (text) {
           const filteredUsers = allUsers.filter((user: any) => {
             if (
@@ -30,13 +30,15 @@ const Index: NextPage = ({data}: any): JSX.Element => {
               || user.lastName.toLowerCase().includes(text?.toLowerCase())
       
               ) {return user}
-              
           })
+          
           setUsers(filteredUsers)
+        } else {
+          setUsers(allUsers)
         }
       }
 
-      filterResults(searchInput)
+      filterResults(searchInput, allUsers)
 
   }, [allUsers, setUsers, searchInput, lookFor]) // DEPENDENCIES ADDED || if it isn't added: [WARNING]: Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
 
